@@ -11,8 +11,8 @@ class ModalToggle extends React.Component {
   targetRef = React.createRef();
 
   onToggle = (on, ...args) => {
-    if (!on) {
-      this.targetRef.current && this.targetRef.current.focus();
+    if (!on && this.targetRef.current) {
+      this.targetRef.current.focus();
     }
 
     this.props.onToggle(on, ...args);
@@ -27,7 +27,7 @@ class ModalToggle extends React.Component {
           <React.Fragment>
             {target({
               getTargetProps: props =>
-                getTogglerProps({ ...props, innerRef: this.targetRef }),
+                getTogglerProps({ ...props, ref: this.targetRef }),
               isOpen: on,
               toggle,
               close,

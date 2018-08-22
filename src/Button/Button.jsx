@@ -1,47 +1,44 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-class Button extends React.Component {
-  static propTypes = {
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
-    innerRef: PropTypes.object,
-    outline: PropTypes.bool,
-    variant: PropTypes.oneOf([
-      "danger",
-      "dark",
-      "default",
-      "info",
-      "light",
-      "link",
-      "primary",
-      "secondary",
-      "success",
-      "warning"
-    ])
-  };
+const Button = React.forwardRef((props, ref) => {
+  const { children, variant, outline, ...additionalProps } = props;
+  let classes = "btn";
 
-  static defaultProps = {
-    type: "button",
-    outline: false,
-    variant: "default"
-  };
-
-  render() {
-    const { children, innerRef, variant, outline, ...props } = this.props;
-    let classes = "btn";
-
-    if (outline) {
-      classes += ` btn-outline-${variant}`;
-    } else {
-      classes += ` btn-${variant}`;
-    }
-
-    return (
-      <button ref={innerRef} {...props} className={classes}>
-        {children}
-      </button>
-    );
+  if (outline) {
+    classes += ` btn-outline-${variant}`;
+  } else {
+    classes += ` btn-${variant}`;
   }
-}
+
+  return (
+    <button ref={ref} {...additionalProps} className={classes}>
+      {children}
+    </button>
+  );
+});
+
+Button.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.node]),
+  outline: PropTypes.bool,
+  variant: PropTypes.oneOf([
+    "danger",
+    "dark",
+    "default",
+    "info",
+    "light",
+    "link",
+    "primary",
+    "secondary",
+    "success",
+    "warning"
+  ])
+};
+
+Button.defaultProps = {
+  type: "button",
+  outline: false,
+  variant: "default"
+};
 
 export default Button;
