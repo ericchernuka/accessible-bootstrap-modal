@@ -34,7 +34,7 @@ class Modal extends React.Component {
 
   onModalEnter = () => {
     document.body.classList.toggle("modal-open");
-    document.addEventListener("focusin", this.enforceFocus, true);
+    // document.addEventListener("focusin", this.enforceFocus, true);
   };
 
   onModalExited = () => {
@@ -42,15 +42,15 @@ class Modal extends React.Component {
     document.removeEventListener("focusin", this.enforceFocus, true);
   };
 
-  enforceFocus = event => {
-    if (
-      document !== event.target &&
-      this.modal.current !== event.target &&
-      !this.modal.current.contains(event.target)
-    ) {
-      this.modal.current.focus();
-    }
-  };
+  // enforceFocus = event => {
+  // if (
+  //   document !== event.target &&
+  //   this.modal.current !== event.target &&
+  //   !this.modal.current.contains(event.target)
+  // ) {
+  //   this.modal.current.focus();
+  // }
+  // };
 
   render() {
     const { children, isOpen, onClose, role, title } = this.props;
@@ -82,7 +82,6 @@ class Modal extends React.Component {
               </ModalDialog>
             </div>
             <div
-              tabIndex={0}
               className={`modal-backdrop fade ${
                 state === "entered" ? "show" : ""
               }`}
